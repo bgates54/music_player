@@ -1,28 +1,19 @@
-"""
-File: listqueue.py
-Author: Vincent Arcuri
-A list-based implementation of stacks.
-"""
-
 class ListQueue(object):
 
     # Constructor
-    def __init__(self, sourceCollection = None):
+    def __init__(self, source_collection=None):
         """Sets the initial state of self, which includes the
         contents of sourceCollection, if it's present."""
         self.items = []
-        if sourceCollection:
-            for item in sourceCollection:
+        if source_collection:
+            for item in source_collection:
                 self.add(item)
 
     # Accessor methods
-    def isEmpty(self):
+    def is_empty(self):
         """Returns True if the queue is empty, or False otherwise."""
-        if len(self) == 0:
-            return True
-        else:
-            return False
-    
+        return len(self) == 0
+
     def __len__(self):
         """Returns the number of items in the queue."""
         return len(self.items)
@@ -41,7 +32,7 @@ class ListQueue(object):
     def __add__(self, other):
         """Returns a new queue containing the contents
         of self and other."""
-        new_queue = ListQueue(sourceCollection=self.items)
+        new_queue = ListQueue(self.items)
         for item in other:
             new_queue.add(item)
         return new_queue
@@ -57,11 +48,10 @@ class ListQueue(object):
                 return True
         return False
 
-
     def peek(self):
         """Returns the item at the front of the queue.
         Raises IndexError if queue is not empty."""
-        if self.isEmpty():
+        if self.is_empty():
             raise IndexError("Queue is empty")
         else:
             return self.items[0]
@@ -69,7 +59,7 @@ class ListQueue(object):
     # Mutator methods
     def clear(self):
         """Makes self become empty."""
-        self.items = []
+        self.items.clear()
 
     def add(self, item):
         """Inserts item at the rear of the queue."""
@@ -78,9 +68,7 @@ class ListQueue(object):
     def pop(self):
         """Removes and returns the item at the front of the
         queue. Raises IndexError if queue is not empty."""
-        if self.isEmpty():
+        if self.is_empty():
             raise IndexError("Queue is empty")
         else:
-            popped_item = self.items.pop(0)
-            return popped_item
-
+            return self.items.pop(0)

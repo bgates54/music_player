@@ -1,28 +1,18 @@
-"""
-File: liststack.py
-Author: Vincent Arcuri
-A list-based implementation of stacks.
-"""
-
-
 class ListStack(object):
     # Constructor
-    def __init__(self, sourceCollection = None):
+    def __init__(self, source_collection=None):
         """Sets the initial state of self, which includes the
         contents of sourceCollection, if it's present."""
         self.items = []
-        if sourceCollection:
-            for item in sourceCollection:
+        if source_collection:
+            for item in source_collection:
                 self.items.append(item)
 
     # Accessor methods
-    def isEmpty(self):
+    def is_empty(self):
         """Returns True if the stack is empty, or False otherwise."""
-        if len(self) == 0:
-            return True
-        else:
-            return False
-    
+        return len(self) == 0
+
     def __len__(self):
         """Returns the number of items in the stack."""
         return len(self.items)
@@ -38,15 +28,13 @@ class ListStack(object):
             yield self.items[cursor]
             cursor += 1
 
-
     def __add__(self, other):
         """Returns a new stack containing the contents
         of self and other."""
         new_items = [] + self.items
         for i in other:
             new_items.append(i)
-        return ListStack(sourceCollection=new_items)
-
+        return ListStack(new_items)
 
     def __eq__(self, other):
         """Returns True if self equals other,
@@ -62,7 +50,7 @@ class ListStack(object):
     def peek(self):
         """Returns the item at top of the stack.
         Raises IndexError if stack is empty."""
-        if not self.isEmpty():
+        if not self.is_empty():
             return self.items[len(self) - 1]
         else:
             raise IndexError("Stack is empty")
@@ -70,7 +58,7 @@ class ListStack(object):
     # Mutator methods
     def clear(self):
         """Makes self become empty."""
-        self.items = []
+        self.items.clear()
 
     def push(self, item):
         """Inserts item at the top of the stack."""
@@ -79,9 +67,7 @@ class ListStack(object):
     def pop(self):
         """Removes and returns the item at top of the stack.
         Raises IndexError if stack is empty."""
-        if self.isEmpty():
+        if self.is_empty():
             raise IndexError("Stack is empty")
         else:
-            removed_item = self.items.pop()
-            return removed_item
-
+            return self.items.pop()

@@ -53,9 +53,14 @@ class Player:
         if not self.song_queue.is_empty():
             song = self.song_queue.pop()
             self.backlog.push(song)
-            print(f"Now Playing:\t{song}")
-            if not self.song_queue.is_empty():
-                print(f"Up Next:\t{self.song_queue.peek()}\n")
+            print(f"Now Playing: {song}")
+            print()
+            if len(self.song_queue) > 0:
+                print(self.song_queue)
+            duration = 0
+            for item in self.song_queue:
+                duration += int(item.duration)
+            print(f"Remaining Playlist Duration:\t{duration} seconds\n")
             self.play_options()
         else:
             self.reset()
@@ -72,7 +77,7 @@ class Player:
         current_song = self.backlog.pop()
         queue = list(self.song_queue)
         random.shuffle(queue)
-        song_list = current_song + queue
+        song_list = [current_song] + queue
         self.song_queue = ListQueue(song_list)
 
 

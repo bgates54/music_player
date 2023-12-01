@@ -20,7 +20,12 @@ class ListQueue(object):
 
     def __str__(self):
         """Returns the string representation of the queue."""
-        return "{" + ', '.join(map(str, self.items)) + "}"
+        print("Up Next: ")
+        print("--------")
+        string = ""
+        for i in self.items:
+            string += str(i) + '\n'
+        return string
 
     def __iter__(self):
         """Supports iteration over a view of the queue."""

@@ -53,9 +53,10 @@ class Player:
         if not self.song_queue.is_empty():
             song = self.song_queue.pop()
             self.backlog.push(song)
-            print(f"Now Playing:\t{song}")
-            if not self.song_queue.is_empty():
-                print(f"Up Next:\t{self.song_queue.peek()}")
+            print(f"Now Playing: {song}")
+            print()
+            if len(self.song_queue) > 0:
+                print(self.song_queue)
             duration = 0
             for item in self.song_queue:
                 duration += int(item.duration)

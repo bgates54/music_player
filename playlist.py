@@ -26,9 +26,5 @@ class Playlist:
                 song = Song(current_line[0].strip(), current_line[1].strip(), current_line[2].strip())
                 self.songs.append(song)
 
-    def show_queue(self):
-        for i in self.songs:
-            print(i)
-
 
 

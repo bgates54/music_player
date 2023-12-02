@@ -2,11 +2,7 @@ from player import Player
 
 
 def main():
-    choice = int(input("[1] Christmas, [2] Alternative ---> "))
-    if choice == 1:
-        music_player = Player("Christmas")
-    elif choice == 2:
-        music_player = Player("Alternative")
+    music_player = Player()
     music_player.run()
 
 

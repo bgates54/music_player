@@ -1,3 +1,12 @@
+"""
+FILE
+    player.py
+AUTHORS
+    Brian Jernigan, Brynna Gates, Vincent Arcuri
+DESCRIPTION
+    Module for the Player class that handles the UI for and functionality for the music player.
+"""
+
 import random
 import datetime
 from listqueue import ListQueue
@@ -7,6 +16,43 @@ import sys
 
 
 class Player:
+    """
+    Holds the song playlists and provides play options for the user.
+
+    Attributes
+    ----------
+    playlists: dict[str, Playlist]
+        A dictionary with key, playlist name, and value a Playlist object.
+    song_queue: ListQueue
+        Contains the song queue for the selected playlist.
+    backlog: ListStack
+        Contains the songs that have been played.
+    playlist_selection: str|None
+        The selected playlist.
+
+    Methods
+    -------
+    main_menu()
+        The main menu options allow the user to select a playlist or quit.
+    play_options()
+        Present the available options for the playlist, such as next song.
+    run()
+        Starts the program loop.
+    play()
+        Plays the next song in the song queue, and displays the song/queue information.
+    add_last()
+        Adds the last song played back to the front of the song queue.
+    shuffle()
+        Shuffles the remaining songs in the song queue.
+    reset()
+        Adds all the songs from the selected playlist back to the song queue.
+    play_options_choice_list()
+        Defines the play options available based on the song queue.
+    get_time_remaining(current_song_duration) -> str
+        The amount of time remaining in the playlist including the current song.
+
+    """
+
     def __init__(self):
         self.playlists = {
             "Christmas": Playlist("Christmas"),
@@ -18,7 +64,7 @@ class Player:
 
     def main_menu(self):
         """The main menu options of the music player."""
-        print(f"{"*"*50}")
+        print(f"{'*' * 50}")
         print("0: Play - Christmas\n1: Play - Alternative\n2: Quit\n")
         choice = input("--->")
         while choice not in list("012"):
@@ -36,7 +82,8 @@ class Player:
                 sys.exit()
 
     def play_options(self):
-        """Play options loops for skipping or playing last songs."""
+        """Play options loops for skipping, playing last song, shuffling, or
+        returning to the main menu."""
         choice_list = self.play_options_choice_list()
         choice = input("--->")
         while choice not in choice_list:
@@ -56,29 +103,23 @@ class Player:
                 self.play()
 
     def run(self):
+        """Program main loop."""
         while True:
             self.main_menu()
 
     def play(self):
-        """Displays the song playing, if no more songs it returns to main menu, and resets the song list."""
+        """Loads the next song and displays the song playing, the time remaining, and a list of songs up next.
+        If there are no more songs it returns to main menu, and resets the song list."""
         if not self.song_queue.is_empty():
             song = self.song_queue.pop()
             self.backlog.push(song)
-            print(f"{"*"*50}")
+            print(f"{'*' * 50}")
             print(f"\nNow Playing\n-----------")
             print(f"{song}\n")
             print(f"Time Remaining\n----------")
             print(f"{self.get_time_remaining(song.duration)}\n")
             if len(self.song_queue) > 0:
                 print(self.song_queue)
-
-            duration = 0
-            for item in self.song_queue:
-                duration += int(item.duration)
-            in_minutes = int(duration / 60)
-            in_seconds = duration % 60
-            print(f"Time left in playlist: {in_minutes}:{in_seconds}\n")
-
             self.play_options()
         else:
             self.reset()
@@ -92,16 +133,15 @@ class Player:
         self.song_queue = ListQueue([last_song, current_song]) + self.song_queue
 
     def shuffle(self):
+        """Shuffles the songs left in the song queue."""
         current_song = self.backlog.pop()
         queue = list(self.song_queue)
         random.shuffle(queue)
         song_list = [current_song] + queue
         self.song_queue = ListQueue(song_list)
 
-
     def reset(self):
         """Adds all the songs from selected playlist back to the queue, and empties the backlog."""
-
         self.song_queue = ListQueue(self.playlists[self.playlist_selection])
         self.backlog.clear()
 
@@ -116,10 +156,10 @@ class Player:
         else:
             print("0: Main Menu, 1: Next, 2: Shuffle")
             return list("012")
-    
+
     def get_time_remaining(self, current_song_duration) -> str:
+        """Returns the time remaining of playlist in hh:mm:ss format"""
         duration = int(current_song_duration)
         for item in self.song_queue:
             duration += int(item.duration)
         return str(datetime.timedelta(seconds=duration))
-

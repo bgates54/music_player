@@ -1,3 +1,13 @@
+"""
+FILE
+    main.py
+AUTHORS
+    Brian Jernigan, Brynna Gates, Vincent Arcuri
+DESCRIPTION
+    Queue data structure.
+"""
+
+
 class ListQueue(object):
 
     # Constructor

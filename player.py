@@ -4,7 +4,7 @@ FILE
 AUTHORS
     Brian Jernigan, Brynna Gates, Vincent Arcuri
 DESCRIPTION
-    Module for the Player class that handles the UI for and functionality for the music player.
+    Module for the Player class that handles the UI and functionality for the music player.
 """
 
 import random

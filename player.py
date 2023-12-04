@@ -71,6 +71,14 @@ class Player:
             print(f"{self.get_time_remaining(song.duration)}\n")
             if len(self.song_queue) > 0:
                 print(self.song_queue)
+
+            duration = 0
+            for item in self.song_queue:
+                duration += int(item.duration)
+            in_minutes = int(duration / 60)
+            in_seconds = duration % 60
+            print(f"Time left in playlist: {in_minutes}:{in_seconds}\n")
+
             self.play_options()
         else:
             self.reset()

@@ -1,3 +1,13 @@
+"""
+FILE
+    liststack.py
+AUTHORS
+    Brian Jernigan, Brynna Gates, Vincent Arcuri
+DESCRIPTION
+    Stack data structure.
+"""
+
+
 class ListStack(object):
     # Constructor
     def __init__(self, source_collection=None):
